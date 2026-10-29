@@ -13,7 +13,7 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;padding-bottom:84px;overflow-x:hidden}
 .hero{position:relative;height:330px;overflow:hidden;background:#06182f}
 .hero canvas{position:absolute;inset:0;width:100%;height:100%}
-.hero .t{position:absolute;left:20px;right:20px;bottom:26px;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.hero .t{position:absolute;left:20px;right:20px;bottom:88px;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.5)}
 .hero small{letter-spacing:.3em;font-size:11px;opacity:.85}
 .hero h1{margin:6px 0 4px;font-size:30px;line-height:1.2;font-weight:800}
 .hero p{margin:0;font-size:13px;opacity:.9}
@@ -102,6 +102,7 @@ nav button.on{color:var(--acc);font-weight:700}
 <section id="home" class="on">
 <h2>ようこそ、丹後の海へ</h2>
 <div class="card"><p style="margin:0;line-height:1.8;font-size:14px">海に浮かぶように建つ約230軒の舟屋が並ぶ<b>伊根</b>と、日本三景のひとつ<b>天橋立</b>。2つの絶景を、スポット・地図・モデルコース・便利ツールでまとめて案内します。</p></div>
+<div class="card" style="display:flex;align-items:center;gap:14px;margin-bottom:6px"><div class="ico" style="background:linear-gradient(45deg,#f9a03f,#e1306c 55%,#833ab4);color:#fff">🏡</div><div style="flex:1"><div style="font-size:11px;color:var(--mute);letter-spacing:.1em">監修 岡﨑 幸雄さんがホストを務める宿</div><div style="font-size:15px;font-weight:700;margin:3px 0 8px">伊根で過ごす、暮らしを感じる滞在</div><a href="https://www.instagram.com/kurashi_ineohara/" target="_blank" rel="noopener" style="display:inline-block;padding:9px 16px;border-radius:12px;background:linear-gradient(45deg,#f9a03f,#e1306c 55%,#833ab4);color:#fff;font-weight:700;font-size:13px;text-decoration:none">Instagramで見る ↗</a></div></div>
 <h2>今すぐ使えるハイテク機能</h2>
 <div class="grid">
 <div class="card spot" onclick="go('tools')"><div class="ico">🌅</div><div><h3>リアルタイム日没予報</h3><p>天文計算で今日の日の出・日没を算出。夕景の舟屋を狙おう。</p></div></div>
@@ -156,7 +157,7 @@ nav button.on{color:var(--acc);font-weight:700}
 <h2>表示</h2>
 <div class="card"><div class="row" style="margin:0"><button class="btn s" id="th">🌓 ライト/ダーク切替</button></div></div>
 </section>
-<div class="foot">監修:岡﨑 幸雄<br>Produced by MIKI FACTORY<br>データは目安です。営業時間・運航状況は各施設でご確認ください。</div>
+<div class="foot">監修:岡﨑 幸雄 ・ <a href="https://www.instagram.com/kurashi_ineohara/" target="_blank" rel="noopener" style="color:var(--acc)">Instagram</a><br>Produced by MIKI FACTORY<br>データは目安です。営業時間・運航状況は各施設でご確認ください。</div>
 </main>
 
 <div class="sheet" id="sheet"><div class="in" id="sin"></div></div>
