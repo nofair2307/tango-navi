@@ -71,12 +71,34 @@ nav button.on{color:var(--acc);font-weight:700}
 .flip{transition:transform 1.1s cubic-bezier(.6,0,.2,1)}
 .flip.on{transform:rotate(180deg)}
 .scroller{overflow-x:auto}
+.wx{position:relative;z-index:6;margin:-64px 0 4px;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--line);border-radius:24px;padding:14px 14px 12px;box-shadow:0 14px 40px rgba(0,0,0,.28)}
+.wx .chips{padding:0}
+.wh{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.wh span{font-size:11px;color:var(--mute);flex:none}
+.wn{display:flex;align-items:center;gap:14px;margin-top:12px}
+.wi{font-size:54px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.25))}
+.wt{font-size:44px;font-weight:800;line-height:1;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.wd{font-size:13px;color:var(--mute);margin-top:4px}
+.wm{margin-left:auto;text-align:right;font-size:12px;line-height:1.8;color:var(--mute)}
+.wa{margin-top:10px;font-size:12.5px;line-height:1.6;background:rgba(10,132,200,.12);border-left:4px solid var(--acc);padding:8px 10px;border-radius:10px}
+.wk{display:flex;gap:8px;overflow-x:auto;margin-top:12px;padding-bottom:4px;scrollbar-width:none}
+.wk::-webkit-scrollbar{display:none}
+.wdy{flex:none;width:68px;text-align:center;padding:10px 4px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
+.wdy.t{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset}
+.wdy b{display:block;font-size:12px}
+.wdy i{display:block;font-style:normal;font-size:26px;margin:6px 0 4px}
+.wdy .hi{font-size:14px;font-weight:800;color:var(--acc2)}
+.wdy .lo{font-size:12px;color:var(--acc)}
+.wdy .pp{font-size:11px;color:var(--mute);margin-top:3px}
+.wer{font-size:12.5px;color:var(--mute);line-height:1.7;padding:12px 2px 4px}
+.wer button{margin-top:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:12px;font-size:13px;cursor:pointer}
 .foot{text-align:center;color:var(--mute);font-size:12px;margin:26px 0 8px}
 </style>
 </head>
 <body>
 <div class="hero"><canvas id="cv"></canvas><div class="logo"><svg viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3cc8ff"/><stop offset="1" stop-color="#ff6fa3"/></linearGradient></defs><path d="M20 2 36 11v18L20 38 4 29V11Z" fill="rgba(5,13,26,.7)" stroke="url(#lg)" stroke-width="2.2" stroke-linejoin="round"/><path d="M11 28V13l9 9 9-9v15" fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="w"><span class="m">MIKI</span><span class="f">FACTORY</span></div></div><div class="badge" id="sun">☀ --:--</div><div class="t"><small>TANGO · KYOTO · JAPAN</small><h1>伊根の舟屋 × 天橋立</h1><p>海の京都を、まるごと完全ナビ。</p><div style="margin-top:10px;display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:rgba(5,13,26,.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);font-size:11px;letter-spacing:.12em;text-shadow:none"><span style="color:#7fdcff;font-weight:700">監修</span><span style="font-weight:700;letter-spacing:.18em">岡﨑 幸雄</span></div></div></div>
 <main>
+<div class="wx" id="wx"><div class="wer">天気を読み込み中…</div></div>
 <section id="home" class="on">
 <h2>ようこそ、丹後の海へ</h2>
 <div class="card"><p style="margin:0;line-height:1.8;font-size:14px">海に浮かぶように建つ約230軒の舟屋が並ぶ<b>伊根</b>と、日本三景のひとつ<b>天橋立</b>。2つの絶景を、スポット・地図・モデルコース・便利ツールでまとめて案内します。</p></div>
@@ -264,7 +286,31 @@ for(let i=0;i<9;i++){const x=w*(.08+i*.105),bw=44*devicePixelRatio,bh=(18+(i%3)*
 requestAnimationFrame(fr)}
 requestAnimationFrame(fr);
 })();
-list();pins();course();sun();
+const WP={"伊根":[35.6742,135.2886],"天橋立":[35.5700,135.1950]};
+let wl="伊根";
+function WC(c){return c===0?["☀️","快晴"]:c<=2?["🌤","晴れ"]:c===3?["☁️","くもり"]:c<=48?["🌫","霧"]:c<=57?["🌦","霧雨"]:c<=67?["🌧","雨"]:c<=77?["❄️","雪"]:c<=82?["🌦","にわか雨"]:c<=86?["🌨","にわか雪"]:["⛈","雷雨"]}
+function wadv(c,pp,ws){
+if(c>=95)return"⚡ 雷の予報です。海上・屋外の予定は無理をせず、屋内スポットを中心に。";
+if(pp>=60)return"☔ 雨の可能性が高めです。遊覧船の運航状況を確認し、智恩寺や酒蔵など屋内の立ち寄りを多めに。";
+if(ws>=10)return"🌬 風が強めです。船は欠航や揺れの可能性があります。天橋立の自転車も注意を。";
+if(c<=2)return"📸 見晴らしの良い一日になりそう。傘松公園の展望と夕景の舟屋が狙い目です。";
+return"🧥 海沿いは体感が変わりやすいので、羽織れるものがあると安心です。";
+}
+async function wx(){
+const el=$("#wx"),p=WP[wl];
+const u="https://api.open-meteo.com/v1/forecast?latitude="+p[0]+"&longitude="+p[1]+"&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=7&wind_speed_unit=ms";
+let j=null,old=false;
+try{const r=await fetch(u);j=await r.json();if(!j.current)throw 0;try{localStorage.setItem("tn_wx_"+wl,JSON.stringify(j))}catch(e){}}catch(e){try{j=JSON.parse(localStorage.getItem("tn_wx_"+wl)||"null");old=!!j}catch(x){j=null}}
+const head='<div class="wh"><div class="chips" id="wch"></div><span>'+(j?(old?"保存データ":"更新 "+new Date().toLocaleTimeString("ja-JP",{hour:"2-digit",minute:"2-digit"})):"")+'</span></div>';
+if(!j){el.innerHTML=head+'<div class="wer">天気を取得できませんでした。通信環境をご確認のうえ、もう一度お試しください。<br><button id="wre">再読み込み</button></div>';chips($("#wch"),Object.keys(WP),wl,v=>{wl=v;wx()});$("#wre").onclick=wx;return}
+const c=j.current,d=j.daily,w=WC(c.weather_code),dn=["日","月","火","水","木","金","土"];
+let h=head+'<div class="wn"><div class="wi">'+w[0]+'</div><div><div class="wt">'+Math.round(c.temperature_2m)+'°</div><div class="wd">'+w[1]+' ・体感 '+Math.round(c.apparent_temperature)+'°</div></div><div class="wm">💧 湿度 '+Math.round(c.relative_humidity_2m)+'%<br>🌬 風 '+c.wind_speed_10m.toFixed(1)+'m/s</div></div>';
+h+='<div class="wa">'+wadv(c.weather_code,d.precipitation_probability_max[0]||0,c.wind_speed_10m)+'</div><div class="wk">';
+d.time.forEach((t,i)=>{const dt=new Date(t+"T00:00:00"),x=WC(d.weather_code[i]);h+='<div class="wdy '+(i===0?"t":"")+'"><b>'+(i===0?"今日":(dt.getMonth()+1)+"/"+dt.getDate()+"("+dn[dt.getDay()]+")")+'</b><i>'+x[0]+'</i><div class="hi">'+Math.round(d.temperature_2m_max[i])+'°</div><div class="lo">'+Math.round(d.temperature_2m_min[i])+'°</div><div class="pp">☂ '+(d.precipitation_probability_max[i]??"-")+'%</div></div>'});
+el.innerHTML=h+'</div>';
+chips($("#wch"),Object.keys(WP),wl,v=>{wl=v;wx()});
+}
+list();pins();course();sun();wx();setInterval(wx,6e5);
 </script>
 </body>
 </html>
