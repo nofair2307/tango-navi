@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>伊根・天橋立 TANGO NAVI</title>
+<style>
+:root{--bg:#f3f7fb;--card:#ffffff;--ink:#10243a;--mute:#5b6f86;--acc:#0a84c8;--acc2:#e0457b;--line:#d5e0ec;--glass:rgba(255,255,255,.72);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#050d1a;--card:#0d1c33;--ink:#e8f1fb;--mute:#8aa3bf;--acc:#3cc8ff;--acc2:#ff6fa3;--line:#1b3252;--glass:rgba(10,24,46,.72)}}
+:root[data-theme="dark"]{--bg:#050d1a;--card:#0d1c33;--ink:#e8f1fb;--mute:#8aa3bf;--acc:#3cc8ff;--acc2:#ff6fa3;--line:#1b3252;--glass:rgba(10,24,46,.72)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hiragino Sans","Noto Sans JP",system-ui,sans-serif;padding-bottom:84px;overflow-x:hidden}
+.hero{position:relative;height:330px;overflow:hidden;background:#06182f}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero .t{position:absolute;left:20px;right:20px;bottom:26px;color:#fff;text-shadow:0 2px 18px rgba(0,0,0,.5)}
+.hero small{letter-spacing:.3em;font-size:11px;opacity:.85}
+.hero h1{margin:6px 0 4px;font-size:30px;line-height:1.2;font-weight:800}
+.hero p{margin:0;font-size:13px;opacity:.9}
+.badge{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:14px;background:var(--glass);backdrop-filter:blur(10px);color:var(--ink);padding:6px 12px;border-radius:99px;font-size:12px;border:1px solid var(--line)}
+.logo{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));left:14px;display:flex;align-items:center;gap:9px;padding:7px 14px 7px 8px;border-radius:14px;background:rgba(5,13,26,.55);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.22);box-shadow:0 6px 24px rgba(0,0,0,.35),inset 0 0 0 1px rgba(60,200,255,.12);overflow:hidden;z-index:5}
+.logo::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:sh 4.5s ease-in-out infinite}
+@keyframes sh{0%,55%{left:-60%}100%{left:130%}}
+.logo svg{width:30px;height:30px;flex:none;filter:drop-shadow(0 0 6px rgba(60,200,255,.7))}
+.logo .w{display:flex;flex-direction:column;line-height:1}
+.logo .m{font-family:"Helvetica Neue",Arial,sans-serif;font-weight:900;font-size:17px;letter-spacing:.14em;background:linear-gradient(90deg,#fff,#7fdcff 55%,#ff8fb8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo .f{font-family:"Helvetica Neue",Arial,sans-serif;font-weight:600;font-size:8.5px;letter-spacing:.62em;color:rgba(255,255,255,.8);margin-top:4px;padding-left:1px}
+main{padding:16px;max-width:760px;margin:0 auto}
+section{display:none;animation:in .35s ease}
+section.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+h2{font-size:18px;margin:18px 2px 10px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
+.chip{flex:none;padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:13px;cursor:pointer}
+.chip.on{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border-color:transparent}
+.grid{display:grid;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;position:relative;overflow:hidden}
+.spot{display:flex;gap:12px;cursor:pointer;transition:transform .2s}
+.spot:active{transform:scale(.98)}
+.ico{flex:none;width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:28px;background:linear-gradient(135deg,rgba(10,132,200,.18),rgba(224,69,123,.18))}
+.spot h3{margin:0 0 2px;font-size:16px}
+.spot .k{font-size:11px;color:var(--mute)}
+.spot p{margin:6px 0 0;font-size:13px;color:var(--mute);line-height:1.55}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:99px;background:rgba(10,132,200,.14);color:var(--acc);margin-right:4px}
+.fav{position:absolute;top:10px;right:12px;font-size:22px;background:none;border:0;color:var(--mute);cursor:pointer}
+.fav.on{color:var(--acc2)}
+.dist{position:absolute;right:14px;bottom:12px;font-size:12px;color:var(--acc);font-weight:700}
+.btn{border:0;border-radius:14px;padding:12px 16px;font-size:14px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--acc),var(--acc2));cursor:pointer;width:100%}
+.btn.s{background:var(--card);color:var(--ink);border:1px solid var(--line)}
+.map{width:100%;border-radius:20px;border:1px solid var(--line);background:linear-gradient(#0b2a4d,#0a3d63);display:block}
+.pin{cursor:pointer}
+.pin circle.c{fill:var(--acc2);stroke:#fff;stroke-width:2}
+.pin circle.p{fill:var(--acc2);opacity:.35;animation:pl 2s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pl{0%{transform:scale(.6);opacity:.6}100%{transform:scale(2.4);opacity:0}}
+.sheet{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:flex-end;z-index:50}
+.sheet.on{display:flex}
+.sheet .in{background:var(--card);width:100%;max-width:760px;margin:0 auto;border-radius:26px 26px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom,0px));max-height:82%;overflow:auto;animation:up .3s ease}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet h3{margin:0 0 4px;font-size:22px}
+.sheet p{line-height:1.75;font-size:14px}
+.tip{background:rgba(10,132,200,.1);border-left:4px solid var(--acc);padding:10px 12px;border-radius:10px;font-size:13px;line-height:1.6}
+.row{display:flex;gap:8px;margin-top:12px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-around;background:var(--glass);backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px));z-index:40}
+nav button{flex:1;background:none;border:0;color:var(--mute);font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer}
+nav button b{font-size:21px;font-weight:400}
+nav button.on{color:var(--acc);font-weight:700}
+.big{font-size:34px;font-weight:800;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.step{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+.step:last-child{border:0}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;display:grid;place-items:center;font-weight:800;font-size:13px}
+.flip{transition:transform 1.1s cubic-bezier(.6,0,.2,1)}
+.flip.on{transform:rotate(180deg)}
+.scroller{overflow-x:auto}
+.foot{text-align:center;color:var(--mute);font-size:12px;margin:26px 0 8px}
+</style>
+</head>
+<body>
+<div class="hero"><canvas id="cv"></canvas><div class="logo"><svg viewBox="0 0 40 40"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3cc8ff"/><stop offset="1" stop-color="#ff6fa3"/></linearGradient></defs><path d="M20 2 36 11v18L20 38 4 29V11Z" fill="rgba(5,13,26,.7)" stroke="url(#lg)" stroke-width="2.2" stroke-linejoin="round"/><path d="M11 28V13l9 9 9-9v15" fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="w"><span class="m">MIKI</span><span class="f">FACTORY</span></div></div><div class="badge" id="sun">☀ --:--</div><div class="t"><small>TANGO · KYOTO · JAPAN</small><h1>伊根の舟屋 × 天橋立</h1><p>海の京都を、まるごと完全ナビ。</p><div style="margin-top:10px;display:inline-flex;align-items:center;gap:8px;padding:5px 12px;border-radius:99px;background:rgba(5,13,26,.5);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.25);font-size:11px;letter-spacing:.12em;text-shadow:none"><span style="color:#7fdcff;font-weight:700">監修</span><span style="font-weight:700;letter-spacing:.18em">岡﨑 幸雄</span></div></div></div>
+<main>
+<section id="home" class="on">
+<h2>ようこそ、丹後の海へ</h2>
+<div class="card"><p style="margin:0;line-height:1.8;font-size:14px">海に浮かぶように建つ約230軒の舟屋が並ぶ<b>伊根</b>と、日本三景のひとつ<b>天橋立</b>。2つの絶景を、スポット・地図・モデルコース・便利ツールでまとめて案内します。</p></div>
+<h2>今すぐ使えるハイテク機能</h2>
+<div class="grid">
+<div class="card spot" onclick="go('tools')"><div class="ico">🌅</div><div><h3>リアルタイム日没予報</h3><p>天文計算で今日の日の出・日没を算出。夕景の舟屋を狙おう。</p></div></div>
+<div class="card spot" onclick="go('tools')"><div class="ico">🙃</div><div><h3>股のぞきモード</h3><p>天橋立の名物「天橋立が空に架かる」景色をスマホで体験。</p></div></div>
+<div class="card spot" onclick="go('map')"><div class="ico">🛰</div><div><h3>インタラクティブ地図</h3><p>現在地と各スポットの直線距離をその場で計算。</p></div></div>
+<div class="card spot" onclick="go('course')"><div class="ico">🧭</div><div><h3>AIルート自動生成</h3><p>お気に入りを選ぶと最短順のコースと所要時間を自動作成。</p></div></div>
+<div class="card spot" onclick="go('tools')"><div class="ico">🎧</div><div><h3>音声ガイド</h3><p>端末の音声合成で各スポットの解説を読み上げ。</p></div></div>
+</div>
+</section>
+
+<section id="spots">
+<div class="chips" id="areaChips"></div>
+<div class="chips" id="catChips" style="margin-top:8px"></div>
+<div class="grid" id="list" style="margin-top:12px"></div>
+</section>
+
+<section id="map">
+<h2>周辺マップ</h2>
+<svg class="map" id="svg" viewBox="0 0 400 340"></svg>
+<div class="row"><button class="btn" id="loc">📍 現在地から距離を計算</button></div>
+<p style="font-size:12px;color:var(--mute)" id="locmsg">位置情報は端末内で計算され、送信されません。</p>
+</section>
+
+<section id="course">
+<h2>モデルコース</h2>
+<div class="card">
+<div style="font-weight:700;margin-bottom:6px">⭐ お気に入りから自動生成</div>
+<div id="auto" style="font-size:13px;color:var(--mute)">スポット一覧でハートを付けてください。</div>
+</div>
+<h2>定番 1日プラン</h2>
+<div class="card" id="plan"></div>
+</section>
+
+<section id="tools">
+<h2>日の出・日没(宮津)</h2>
+<div class="card"><div class="big" id="sset">--:--</div><div style="font-size:13px;color:var(--mute);margin-top:4px" id="srise"></div><div style="font-size:13px;margin-top:8px" id="sadv"></div></div>
+<h2>股のぞきモード</h2>
+<div class="card">
+<div class="scroller"><svg id="scene" class="flip" viewBox="0 0 360 200" style="width:100%;border-radius:14px;display:block">
+<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a6b"/><stop offset=".55" stop-color="#ffd7a1"/><stop offset=".56" stop-color="#2d9bd6"/><stop offset="1" stop-color="#0a4d83"/></linearGradient></defs>
+<rect width="360" height="200" fill="url(#sk)"/><circle cx="270" cy="60" r="22" fill="#fff3c4"/>
+<path d="M0 112 L90 108 Q180 104 270 108 L360 112 L360 120 L0 120Z" fill="#0f5f4a"/>
+<path d="M20 112 Q180 100 340 112" stroke="#d8f5e6" stroke-width="3" fill="none" stroke-dasharray="2 4"/>
+<path d="M0 120 Q60 112 120 120 T240 120 T360 120 V200 H0Z" fill="#0a4d83" opacity=".5"/>
+</svg></div>
+<div class="row"><button class="btn" id="flipb">🙃 股のぞきする</button></div>
+<p style="font-size:12px;color:var(--mute);margin:10px 0 0">傘松公園・天橋立ビューランドなどの展望台で、背中を向けて股の間から眺める名物の楽しみ方です。</p>
+</div>
+<h2>音声ガイド</h2>
+<div class="card"><select id="vsel" style="width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:14px"></select>
+<div class="row"><button class="btn" id="speak">▶ 読み上げ</button><button class="btn s" id="stop">■ 停止</button></div></div>
+<h2>表示</h2>
+<div class="card"><div class="row" style="margin:0"><button class="btn s" id="th">🌓 ライト/ダーク切替</button></div></div>
+</section>
+<div class="foot">監修:岡﨑 幸雄<br>Produced by MIKI FACTORY<br>データは目安です。営業時間・運航状況は各施設でご確認ください。</div>
+</main>
+
+<div class="sheet" id="sheet"><div class="in" id="sin"></div></div>
+
+<nav id="nav">
+<button data-t="home" class="on"><b>🏠</b>ホーム</button>
+<button data-t="spots"><b>📍</b>スポット</button>
+<button data-t="map"><b>🗺</b>マップ</button>
+<button data-t="course"><b>🧭</b>コース</button>
+<button data-t="tools"><b>✨</b>ツール</button>
+</nav>
+
+<script>
+const S=[
+{id:"funaya",a:"伊根",n:"伊根の舟屋群",k:"いねのふなやぐん",c:"絶景",e:"🏘",la:35.6742,lo:135.2886,m:90,d:"伊根湾をぐるりと囲んで約230軒の舟屋が並ぶ、全国的にも珍しい漁村景観。1階が船のガレージ、2階が居室という造りで、国の重要伝統的建造物群保存地区に選定されています。",t:"朝の凪いだ時間は海面に舟屋が映り込み、写真映えします。集落内は住民の方の生活の場。静かに歩きましょう。"},
+{id:"cruise",a:"伊根",n:"伊根湾めぐり遊覧船",k:"いねわんめぐりゆうらんせん",c:"体験",e:"⛴",la:35.6735,lo:135.2870,m:35,d:"海上から舟屋を眺められる遊覧船。カモメへの餌やり体験も人気です。",t:"運航は天候・波の状況で変わります。乗船前に最新の運航状況を確認してください。"},
+{id:"park",a:"伊根",n:"道の駅 舟屋の里公園",k:"みちのえき ふなやのさとこうえん",c:"グルメ",e:"🍣",la:35.6680,lo:135.2955,m:60,d:"舟屋群を高台から見渡せるビュースポットを兼ねた道の駅。地元の海産物やお土産、食事処があります。",t:"眺めの良い展望ポイントから集落全体を撮るなら、ここが定番です。"},
+{id:"mukai",a:"伊根",n:"向井酒造(伊根満開)",k:"むかいしゅぞう",c:"グルメ",e:"🍶",la:35.6745,lo:135.2905,m:40,d:"伊根の舟屋の一角にある酒蔵。古代米(赤米)を使った赤い日本酒「伊根満開」で知られます。",t:"運転する方は試飲を控え、公共交通や宿泊と組み合わせて楽しみましょう。"},
+{id:"arai",a:"伊根",n:"新井崎神社",k:"にいざきじんじゃ",c:"神社仏閣",e:"⛩",la:35.7150,lo:135.3320,m:40,d:"伊根半島の先端近くにある神社。徐福伝説にまつわる場所として知られ、海を望む静かな参拝が楽しめます。",t:"中心部から離れており道が細いため、運転は慎重に。"},
+{id:"hashi",a:"天橋立",n:"天橋立",k:"あまのはしだて",c:"絶景",e:"🌲",la:35.5700,lo:135.1950,m:120,d:"宮津湾と阿蘇海を隔てる全長約3.6kmの砂洲。約8000本の松並木が続く日本三景のひとつです。",t:"徒歩・レンタサイクルで渡れます。片道約45分、自転車ならゆったり往復できます。"},
+{id:"kasa",a:"天橋立",n:"傘松公園",k:"かさまつこうえん",c:"絶景",e:"🙃",la:35.5890,lo:135.1745,m:60,d:"天橋立を真上から望む展望所。背を向けて股の間からのぞく「股のぞき」の名所で、天に架かる橋のように見えます。",t:"ケーブルカーまたはリフトで登れます。運行時間は事前確認を。"},
+{id:"view",a:"天橋立",n:"天橋立ビューランド",k:"あまのはしだてびゅーらんど",c:"体験",e:"🎡",la:35.5735,lo:135.1915,m:60,d:"文珠側の山上にある展望施設。「飛龍観」と呼ばれる景色で、天橋立が龍のように見えると言われます。",t:"観覧車やモノレールなど、家族連れにも楽しめます。"},
+{id:"chion",a:"天橋立",n:"智恩寺(知恵の文殊)",k:"ちおんじ",c:"神社仏閣",e:"🛕",la:35.5685,lo:135.1930,m:40,d:"「三人寄れば文殊の知恵」で知られる日本三文殊のひとつ。受験や学業祈願に人気です。",t:"境内の名物・知恵の餅やおみくじも楽しんで。"},
+{id:"kono",a:"天橋立",n:"元伊勢 籠神社",k:"このじんじゃ",c:"神社仏閣",e:"⛩",la:35.5985,lo:135.1795,m:50,d:"丹後一宮として古くから信仰を集める神社。天橋立の北端に位置し、伊勢神宮ゆかりの「元伊勢」としても知られます。",t:"天橋立を歩いて渡ったあと、船や路線バスで訪れるのが一般的です。"},
+{id:"naria",a:"天橋立",n:"成相寺",k:"なりあいじ",c:"神社仏閣",e:"🔔",la:35.6000,lo:135.1910,m:60,d:"西国三十三所の札所のひとつ。山上から天橋立を望む景色が見事です。",t:"山上のため肌寒いこともあります。羽織れるものがあると安心。"},
+{id:"kaiten",a:"天橋立",n:"廻旋橋",k:"かいせんきょう",c:"体験",e:"🌉",la:35.5718,lo:135.1963,m:15,d:"船が通るたびに橋の中央が回転して開く、珍しい小天橋。天橋立の入口付近にあります。",t:"回転のタイミングは時刻表で確認を。"}
+];
+const PLAN=[["9:00","伊根の舟屋群を散策","静かな朝の集落を歩く"],["10:30","伊根湾めぐり遊覧船","海上から舟屋を眺める"],["12:00","舟屋の里公園で昼食","海鮮と展望を楽しむ"],["14:00","天橋立へ移動","車で約1時間が目安"],["15:00","天橋立を歩く/自転車","松並木を満喫"],["16:30","傘松公園で股のぞき","夕景の天橋立を撮影"]];
+const $=s=>document.querySelector(s);
+let area="すべて",cat="すべて",favs=[],me=null,flip=false;
+try{favs=JSON.parse(localStorage.getItem("tn_fav")||"[]")}catch(e){favs=[]}
+function save(){try{localStorage.setItem("tn_fav",JSON.stringify(favs))}catch(e){}}
+function hv(a,b,c,d){const r=Math.PI/180,x=(d-b)*r*Math.cos((a+c)*r/2),y=(c-a)*r;return Math.sqrt(x*x+y*y)*6371}
+function dist(s){return me?hv(me[0],me[1],s.la,s.lo):null}
+function fmt(k){return k<1?Math.round(k*1000)+"m":k.toFixed(1)+"km"}
+function go(t){document.querySelectorAll("section").forEach(x=>x.classList.toggle("on",x.id===t));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));if(t==="course")course();window.scrollTo({top:0,behavior:"smooth"})}
+$("#nav").onclick=e=>{const b=e.target.closest("button");if(b)go(b.dataset.t)};
+function chips(el,arr,cur,fn){el.innerHTML=arr.map(x=>`<button class="chip ${x===cur?"on":""}" data-v="${x}">${x}</button>`).join("");el.onclick=e=>{const b=e.target.closest("button");if(b){fn(b.dataset.v)}}}
+function list(){
+chips($("#areaChips"),["すべて","伊根","天橋立"],area,v=>{area=v;list()});
+chips($("#catChips"),["すべて","絶景","体験","グルメ","神社仏閣"],cat,v=>{cat=v;list()});
+let a=S.filter(s=>(area==="すべて"||s.a===area)&&(cat==="すべて"||s.c===cat));
+if(me)a.sort((x,y)=>dist(x)-dist(y));
+$("#list").innerHTML=a.map(s=>`<div class="card spot" data-id="${s.id}"><div class="ico">${s.e}</div><div><h3>${s.n}</h3><div class="k">${s.k}</div><div style="margin-top:6px"><span class="tag">${s.a}</span><span class="tag">${s.c}</span></div><p>${s.d.slice(0,44)}…</p></div><button class="fav ${favs.includes(s.id)?"on":""}" data-f="${s.id}">${favs.includes(s.id)?"♥":"♡"}</button>${me?`<div class="dist">${fmt(dist(s))}</div>`:""}</div>`).join("");
+}
+$("#list").onclick=e=>{const f=e.target.closest("[data-f]");if(f){e.stopPropagation();tog(f.dataset.f);return}const c=e.target.closest("[data-id]");if(c)open(c.dataset.id)};
+function tog(id){favs=favs.includes(id)?favs.filter(x=>x!==id):[...favs,id];save();list();course();pins()}
+function open(id){
+const s=S.find(x=>x.id===id);
+$("#sin").innerHTML=`<span class="tag">${s.a}</span><span class="tag">${s.c}</span><h3>${s.e} ${s.n}</h3><div style="color:var(--mute);font-size:12px">${s.k}・目安滞在 ${s.m}分${me?`・現在地から ${fmt(dist(s))}`:""}</div><p>${s.d}</p><div class="tip">💡 ${s.t}</div><div class="row"><button class="btn" id="sp1">🎧 音声で聞く</button><button class="btn s" id="sp2">${favs.includes(id)?"♥ 登録済み":"♡ お気に入り"}</button></div><div class="row"><button class="btn s" id="sp3">閉じる</button></div>`;
+$("#sheet").classList.add("on");
+$("#sp1").onclick=()=>say(s.n+"。"+s.d+s.t);
+$("#sp2").onclick=()=>{tog(id);open(id)};
+$("#sp3").onclick=()=>{$("#sheet").classList.remove("on");speechSynthesis&&speechSynthesis.cancel()};
+}
+$("#sheet").onclick=e=>{if(e.target.id==="sheet")$("#sheet").classList.remove("on")};
+function say(t){if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);const v=speechSynthesis.getVoices().find(x=>x.name===$("#vsel").value);u.lang="ja-JP";if(v)u.voice=v;u.rate=.95;speechSynthesis.speak(u)}
+function voices(){const v=(window.speechSynthesis?speechSynthesis.getVoices():[]).filter(x=>x.lang.startsWith("ja"));$("#vsel").innerHTML=v.length?v.map(x=>`<option>${x.name}</option>`).join(""):"<option>標準の音声</option>"}
+if(window.speechSynthesis){speechSynthesis.onvoiceschanged=voices}
+voices();
+$("#speak").onclick=()=>say("伊根町の舟屋と、宮津市の天橋立へようこそ。海の京都を、ゆっくり楽しんでください。");
+$("#stop").onclick=()=>window.speechSynthesis&&speechSynthesis.cancel();
+function X(lo){return 12+(lo-135.12)/.22*376}
+function Y(la){return 12+(35.70-la)/.16*316}
+function pins(){
+let h='<defs><pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="rgba(255,255,255,.08)"/></pattern></defs><rect width="400" height="340" fill="url(#g)"/>';
+h+='<path d="M0 0H400V70Q330 90 300 130Q250 170 200 150Q140 140 90 190Q40 230 0 220Z" fill="#14594a" opacity=".85"/>';
+h+='<path d="M0 235Q60 240 120 210Q200 190 290 200Q350 215 400 190V340H0Z" fill="#14594a" opacity=".85"/>';
+h+='<path d="M60 208Q120 220 200 160" stroke="#d8f5e6" stroke-width="3" fill="none" stroke-dasharray="3 5"/>';
+const o=favs.map(id=>S.find(s=>s.id===id));
+if(o.length>1)h+='<polyline points="'+o.map(s=>X(s.lo)+","+Y(s.la)).join(" ")+'" fill="none" stroke="#ffd166" stroke-width="2" stroke-dasharray="6 4"/>';
+S.forEach(s=>{const x=X(s.lo),y=Y(s.la),f=favs.includes(s.id);h+=`<g class="pin" data-id="${s.id}"><circle class="p" cx="${x}" cy="${y}" r="7"/><circle class="c" cx="${x}" cy="${y}" r="${f?9:6}" style="fill:${f?"#ffd166":""}"/><text x="${x+11}" y="${y+4}" font-size="11" fill="#fff" font-weight="700" stroke="#06182f" stroke-width="3" paint-order="stroke">${s.n.replace(/\(.*\)/,"").slice(0,9)}</text></g>`});
+if(me){h+=`<circle cx="${X(me[1])}" cy="${Y(me[0])}" r="7" fill="#4dd0ff" stroke="#fff" stroke-width="2"/>`}
+$("#svg").innerHTML=h;
+}
+$("#svg").onclick=e=>{const g=e.target.closest("[data-id]");if(g)open(g.dataset.id)};
+$("#loc").onclick=()=>{
+if(!navigator.geolocation){$("#locmsg").textContent="この端末では位置情報を使えません。";return}
+$("#locmsg").textContent="現在地を取得中…";
+navigator.geolocation.getCurrentPosition(p=>{me=[p.coords.latitude,p.coords.longitude];const n=S.map(s=>[s,dist(s)]).sort((a,b)=>a[1]-b[1])[0];$("#locmsg").textContent=`最寄りは「${n[0].n}」(${fmt(n[1])})。`;list();pins()},()=>{$("#locmsg").textContent="位置情報を取得できませんでした。許可設定をご確認ください。"},{enableHighAccuracy:true,timeout:10000});
+};
+function course(){
+const el=$("#auto");
+if(!favs.length){el.textContent="スポット一覧でハートを付けてください。";return}
+let rest=favs.map(id=>S.find(s=>s.id===id)),cur=me?{la:me[0],lo:me[1]}:rest[0],out=[];
+if(!me){out.push(rest.shift())}
+while(rest.length){rest.sort((a,b)=>hv(cur.la,cur.lo,a.la,a.lo)-hv(cur.la,cur.lo,b.la,b.lo));cur=rest.shift();out.push(cur)}
+let t=9*60,total=0,h="";
+out.forEach((s,i)=>{
+let mv=0;if(i>0){mv=Math.round(hv(out[i-1].la,out[i-1].lo,s.la,s.lo)*1.4/30*60)+5}
+t+=mv;const hh=String(Math.floor(t/60)).padStart(2,"0")+":"+String(t%60).padStart(2,"0");
+h+=`<div class="step"><div class="num">${i+1}</div><div><b style="color:var(--ink)">${hh} ${s.n}</b><div style="font-size:12px">滞在 ${s.m}分${mv?` ・移動 約${mv}分`:""}</div></div></div>`;
+t+=s.m;total+=s.m+mv});
+el.innerHTML=h+`<div style="margin-top:8px;font-size:12px">合計 約${Math.floor(total/60)}時間${total%60}分(車移動の目安・9:00出発)</div>`;
+}
+$("#plan").innerHTML=PLAN.map((p,i)=>`<div class="step"><div class="num">${i+1}</div><div><b>${p[0]} ${p[1]}</b><div style="font-size:12px;color:var(--mute)">${p[2]}</div></div></div>`).join("");
+function sun(){
+const d=new Date(),la=35.57,lo=135.2,r=Math.PI/180;
+const n=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5);
+const dec=23.44*Math.sin(2*Math.PI*(284+n)/365)*r;
+const B=2*Math.PI*(n-81)/364,eot=9.87*Math.sin(2*B)-7.53*Math.cos(B)-1.5*Math.sin(B);
+const c=(Math.cos(90.833*r)-Math.sin(la*r)*Math.sin(dec))/(Math.cos(la*r)*Math.cos(dec));
+const H=Math.acos(Math.max(-1,Math.min(1,c)))/r/15;
+const noon=12-(lo-135)/15-eot/60;
+const f=h=>{const m=Math.round(h*60);return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")};
+const rise=f(noon-H),set=f(noon+H);
+$("#sset").textContent="日没 "+set;$("#srise").textContent="日の出 "+rise+" ・ 日照 約"+(H*2).toFixed(1)+"時間";
+$("#sun").textContent="🌅 "+set;
+const sm=Math.round((noon+H)*60);
+$("#sadv").textContent="📸 夕景撮影は日没の約40分前、"+f((sm-40)/60)+"頃から準備がおすすめです。";
+}
+$("#flipb").onclick=()=>{flip=!flip;$("#scene").classList.toggle("on",flip);$("#flipb").textContent=flip?"🙂 元に戻す":"🙃 股のぞきする"};
+$("#th").onclick=()=>{const r=document.documentElement,dk=getComputedStyle(r).getPropertyValue("--bg").trim()==="#050d1a";r.setAttribute("data-theme",dk?"light":"dark")};
+(function(){
+const cv=$("#cv"),g=cv.getContext("2d");let w,h,st=[];
+function rs(){w=cv.width=cv.clientWidth*devicePixelRatio;h=cv.height=cv.clientHeight*devicePixelRatio;st=Array.from({length:90},()=>({x:Math.random()*w,y:Math.random()*h*.55,r:Math.random()*1.6+.3,p:Math.random()*6}))}
+rs();addEventListener("resize",rs);
+function fr(t){
+t/=1000;
+const gr=g.createLinearGradient(0,0,0,h);gr.addColorStop(0,"#050d2a");gr.addColorStop(.55,"#1b3d78");gr.addColorStop(.62,"#e0457b");gr.addColorStop(.63,"#0a3d63");gr.addColorStop(1,"#041a33");
+g.fillStyle=gr;g.fillRect(0,0,w,h);
+st.forEach(s=>{g.globalAlpha=.4+.6*Math.abs(Math.sin(t+s.p));g.fillStyle="#fff";g.beginPath();g.arc(s.x,s.y,s.r*devicePixelRatio,0,7);g.fill()});
+g.globalAlpha=1;
+const hy=h*.63;
+for(let k=0;k<4;k++){g.beginPath();g.moveTo(0,hy+k*14*devicePixelRatio);for(let x=0;x<=w;x+=12){g.lineTo(x,hy+k*14*devicePixelRatio+Math.sin(x/(60*devicePixelRatio)+t*(1+k*.3))*(4+k*2)*devicePixelRatio)}g.lineTo(w,h);g.lineTo(0,h);g.closePath();g.fillStyle=`rgba(${20+k*10},${90+k*20},${150+k*15},${.28})`;g.fill()}
+for(let i=0;i<9;i++){const x=w*(.08+i*.105),bw=44*devicePixelRatio,bh=(18+(i%3)*8)*devicePixelRatio;g.fillStyle="#08162b";g.fillRect(x,hy-bh,bw,bh);g.beginPath();g.moveTo(x-5,hy-bh);g.lineTo(x+bw/2,hy-bh-16*devicePixelRatio);g.lineTo(x+bw+5,hy-bh);g.fill();g.fillStyle="rgba(255,209,102,.9)";g.fillRect(x+bw*.4,hy-bh*.6,6*devicePixelRatio,8*devicePixelRatio)}
+requestAnimationFrame(fr)}
+requestAnimationFrame(fr);
+})();
+list();pins();course();sun();
+</script>
+</body>
+</html>
